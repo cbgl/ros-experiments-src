@@ -1,0 +1,45 @@
+<launch>
+
+  <arg name="gazebo_world"  default="csal_gl_2023_rb1" />
+
+  <!-- true | false -->
+  <arg name="gazebo_gui"    default="false" />
+
+  <!-- turtlebot | rb1-->
+  <arg name="robot_type"    default="rb1" />
+
+  <!-- visualisation is not necessarily necessary -->
+  <arg name="do_viz"        default="true" />
+
+
+  <arg name="num_cameras"   default="1" />
+
+  <!-- Load map -->
+  <arg name="map_directory"     value="$(find relief_devel)/maps" />
+  <arg name="world_name"        value="csal_gl_2023_rb1"/>
+  <arg name="map_resolution"    value="0.01"  if="$(eval world_name == 'csal_gl_2023_rb1')" />
+  <include file="$(find cbgl_ros)/launch/load_map.launch">
+    <arg name="map_directory"   value="$(arg map_directory)"/>
+    <arg name="map_file"        value="$(arg world_name)"/>
+    <arg name="map_resolution"  value="$(arg map_resolution)"/>
+  </include>
+
+  <!-- Load package to disperse hypotheses -->
+  <include file="$(find map_hypotheses_generation)/launch/avanti.launch"/>
+
+  <!-- Load base to laser tf -->
+  <include file="$(find cbgl_ros)/launch/laser_tf.launch"/>
+
+
+  <!-- Execute CBGL -->
+  <include file="$(find cbgl_ros)/launch/cbgl.launch">
+    <arg name="gazebo_world" value="$(arg gazebo_world)" />
+    <arg name="robot_type"   value="$(arg robot_type)" />
+  </include>
+
+
+  <!-- Launch logger -->
+  <include file="$(find cbgl_ros)/launch/cbgl_logger_bag.launch">
+    <arg name="gazebo_world"        value="$(arg gazebo_world)" />
+  </include>
+</launch>

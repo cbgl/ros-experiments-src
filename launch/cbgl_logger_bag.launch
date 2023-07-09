@@ -1,0 +1,28 @@
+<launch>
+
+  <arg name="gazebo_world" />
+
+  <node name="cbgl_logger_bag_node" pkg="cbgl_ros" type="cbgl_logger_bag_node" output="screen">
+
+    <param name="map_topic"                     value="/map" />
+    <param name="ground_truth_topic"            value="/amcl_pose" />
+    <param name="global_pose_topic"             value="/cbgl_ros_node/global_pose" />
+    <param name="execution_time_topic"          value="/cbgl_ros_node/execution_time" />
+    <param name="best_particle_topic"           value="/cbgl_ros_node/best_particle" />
+    <param name="all_hypotheses_topic"          value="/cbgl_ros_node/all_particlecloud" />
+    <param name="top_caer_hypotheses_topic"     value="/cbgl_ros_node/top_caer_particlecloud" />
+    <param name="start_signal_service_name"     value="/start_signal" />
+
+    <param name="map_filename"                  value="$(find cbgl_ros)/experiments_logs/map" />
+    <param name="ground_truth_filename"         value="$(find cbgl_ros)/experiments_logs/ground_truth" />
+    <param name="global_pose_filename"          value="$(find cbgl_ros)/experiments_logs/global_pose" />
+    <param name="execution_time_filename"       value="$(find cbgl_ros)/experiments_logs/execution_time" />
+    <param name="best_particle_filename"        value="$(find cbgl_ros)/experiments_logs/best_particle" />
+    <param name="all_hypotheses_filename"       value="$(find cbgl_ros)/experiments_logs/all_hypotheses" />
+    <param name="top_caer_hypotheses_filename"  value="$(find cbgl_ros)/experiments_logs/top_caer_hypotheses" />
+
+    <param name="map_name"                      value="$(arg gazebo_world)" />
+
+  </node>
+
+</launch>

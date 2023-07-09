@@ -1,0 +1,45 @@
+<launch>
+
+<!--
+https://answers.ros.org/question/123256/sync-ros-bag-timestamps-with-ros-system/
+-->
+  <param name="use_sim_time"  value="true" />
+
+  <arg name="gazebo_world"  default="csal_gl_2023_rb1" />
+
+  <!-- true | false -->
+  <arg name="gazebo_gui"    default="false" />
+
+  <!-- turtlebot | rb1-->
+  <arg name="robot_type"    default="rb1" />
+
+  <!-- visualisation is not necessarily necessary -->
+  <arg name="do_viz"        default="true" />
+
+
+  <arg name="num_cameras"   default="1" />
+
+  <!-- Load map -->
+  <arg name="map_directory"     value="$(find relief_devel)/maps" />
+  <arg name="world_name"        value="csal_gl_2023_rb1"/>
+  <arg name="map_resolution"    value="0.01"  if="$(eval world_name == 'csal_gl_2023_rb1')" />
+  <include file="$(find cbgl_ros)/launch/load_map.launch">
+    <arg name="map_directory"   value="$(arg map_directory)"/>
+    <arg name="map_file"        value="$(arg world_name)"/>
+    <arg name="map_resolution"  value="$(arg map_resolution)"/>
+  </include>
+
+  <!-- Load base to laser tf -->
+  <include file="$(find cbgl_ros)/launch/laser_tf_cbgl.launch"/>
+
+
+  <!-- Execute CBGL -->
+  <!--include file="$(find gmcl)/launch/gmcl_bag.launch"/-->
+
+
+  <!-- Launch logger
+   -->
+  <include file="$(find cbgl_ros)/launch/gmcl_logger_bag.launch">
+    <arg name="gazebo_world"        value="$(arg gazebo_world)" />
+  </include>
+</launch>

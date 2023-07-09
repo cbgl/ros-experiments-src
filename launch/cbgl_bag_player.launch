@@ -1,0 +1,13 @@
+<launch>
+
+  <node pkg="cbgl_ros" type="cbgl_bag_player_node" name="cbgl_bag_player_node" output="screen">
+
+    <param name="bag_filename"                  value="/home/li9i/Desktop/rb1.bag" />
+    <param name="start_signal_service_name"     value="/start_signal" />
+    <param name="ground_truth_topic"            value="/amcl_pose" />
+    <param name="scan_topic"                    value="/front_laser/scan" />
+    <param name="cbgl_status_topic"             value="/cbgl_ros_node/status" />
+
+  </node>
+
+</launch>

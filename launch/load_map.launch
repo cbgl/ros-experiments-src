@@ -1,0 +1,9 @@
+<launch>
+  <arg name="map_directory"           default="$(find relief_devel)/maps" />
+  <arg name="map_file"                default="csal_gl_2023_rb1"/>
+  <arg name="map_resolution"          default="0.01"  if="$(eval map_file == 'csal_gl_2023_rb1')" />
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_directory)/$(arg map_file)_$(arg map_resolution).pgm $(arg map_resolution)" />
+
+  <node pkg="tf" type="static_transform_publisher" name="map_frame_id_broadcaster" args="0 0 0 0 0 0 1 world map 1" />
+</launch>

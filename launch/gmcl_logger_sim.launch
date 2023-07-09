@@ -1,0 +1,21 @@
+<launch>
+
+  <arg name="gazebo_world" />
+
+  <node name="gmcl_logger_sim_node" pkg="cbgl_ros" type="gmcl_logger_sim_node" output="screen">
+
+    <param name="map_topic"                     value="/map" />
+    <param name="ground_truth_topic"            value="/ground_truth/state" />
+    <param name="global_pose_topic"             value="/gmcl_global_pose" />
+    <param name="start_signal_service_name"     value="/global_localization" />
+
+    <param name="map_filename"                  value="$(find cbgl_ros)/experiments_logs/map" />
+    <param name="ground_truth_filename"         value="$(find cbgl_ros)/experiments_logs/ground_truth" />
+    <param name="global_pose_filename"          value="$(find cbgl_ros)/experiments_logs/global_pose" />
+    <param name="execution_time_filename"       value="$(find cbgl_ros)/experiments_logs/execution_time" />
+
+    <param name="map_name"                      value="$(arg gazebo_world)" />
+
+  </node>
+
+</launch>
